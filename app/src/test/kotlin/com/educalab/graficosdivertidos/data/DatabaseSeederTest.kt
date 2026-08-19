@@ -5,6 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.educalab.graficosdivertidos.data.local.AppDatabase
 import com.educalab.graficosdivertidos.data.local.seed.DatabaseSeeder
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
@@ -73,7 +74,7 @@ class DatabaseSeederTest {
     fun `cada dataset semilla tiene al menos dos puntos de datos`() = runTest {
         seeder.seedIfNeeded()
         val datasets = db.datasetDao().observeDatasets()
-        val list = kotlinx.coroutines.flow.first(datasets)
+        val list = datasets.first()
         list.forEach { dataset ->
             val points = db.datasetDao().getPoints(dataset.id)
             assertThat(points.size).isAtLeast(2)
@@ -83,7 +84,7 @@ class DatabaseSeederTest {
     @Test
     fun `eliminar un dataset elimina en cascada sus puntos y definiciones de grafico`() = runTest {
         seeder.seedIfNeeded()
-        val dataset = kotlinx.coroutines.flow.first(db.datasetDao().observeDatasets()).first()
+        val dataset = db.datasetDao().observeDatasets().first().first()
         val pointsBefore = db.datasetDao().getPoints(dataset.id)
         assertThat(pointsBefore).isNotEmpty()
 
