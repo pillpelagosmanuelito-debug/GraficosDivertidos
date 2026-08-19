@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -63,7 +62,7 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onDone: () -> Unit) {
                     else -> ProfilePage(state, viewModel)
                 }
             }
-            Row(horizontalAlignment = Alignment.CenterHorizontally) {
+            Row(horizontalArrangement = Arrangement.Center) {
                 repeat(viewModel.pageCount) { index ->
                     Box(
                         modifier = Modifier

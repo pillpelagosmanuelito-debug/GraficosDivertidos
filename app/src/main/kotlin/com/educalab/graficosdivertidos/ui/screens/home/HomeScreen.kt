@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -77,13 +76,13 @@ fun HomeScreen(
                     "Tu Estudio",
                     style = MaterialTheme.typography.headlineSmall,
                     color = androidx.compose.ui.graphics.Color.White,
-                    modifier = Modifier.padding(horizontal = 20.dp, top = 8.dp),
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
                 )
                 Text(
                     "Elige una estación para empezar tu próxima misión.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.7f),
-                    modifier = Modifier.padding(horizontal = 20.dp, top = 2.dp, bottom = 12.dp),
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 2.dp, bottom = 12.dp),
                 )
             }
             items(state.modules) { module ->

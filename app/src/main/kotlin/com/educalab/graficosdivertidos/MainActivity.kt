@@ -19,6 +19,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.compose.rememberNavController
 import com.educalab.graficosdivertidos.ui.LocalUserId
 import com.educalab.graficosdivertidos.ui.navigation.GraficosNavGraph
@@ -68,9 +71,9 @@ private fun RootContent(app: GraficosDivertidosApp) {
         when (profile?.onboardingCompleted) {
             null -> LoadingSplash()
             false -> {
-                val onboardingViewModel = androidx.lifecycle.viewmodel.compose.viewModel<OnboardingViewModel>(
-                    factory = androidx.lifecycle.viewmodel.viewModelFactory {
-                        androidx.lifecycle.viewmodel.initializer { OnboardingViewModel(currentUserId, app.profileRepository) }
+                val onboardingViewModel = viewModel<OnboardingViewModel>(
+                    factory = viewModelFactory {
+                        initializer { OnboardingViewModel(currentUserId, app.profileRepository) }
                     },
                 )
                 OnboardingScreen(viewModel = onboardingViewModel, onDone = {})
