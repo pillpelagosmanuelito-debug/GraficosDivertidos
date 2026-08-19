@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tema base de arranque: todo el theming visual real vive en Compose (ui/theme). -->
+    <style name="Theme.GraficosDivertidos" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">#14162B</item>
+        <item name="android:windowBackground">#14162B</item>
+        <item name="android:navigationBarColor">#14162B</item>
+    </style>
+</resources>
