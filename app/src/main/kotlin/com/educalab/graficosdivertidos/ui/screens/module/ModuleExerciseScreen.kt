@@ -106,10 +106,12 @@ private fun ExerciseContent(
     state: ExerciseUiState,
     viewModel: ModuleExerciseViewModel,
 ) {
+    var dragActive by remember { mutableStateOf(false) }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),
+        userScrollEnabled = !dragActive,
     ) {
         item {
             AnimatedProgressBar(progress = state.progressFraction)
@@ -148,7 +150,12 @@ private fun ExerciseContent(
             }
         }
         item {
-            InteractionArea(exercise = exercise, state = state, viewModel = viewModel)
+            InteractionArea(
+                exercise = exercise,
+                state = state,
+                viewModel = viewModel,
+                onDragActiveChange = { dragActive = it },
+            )
         }
         state.lastResult?.let { result ->
             item {
@@ -162,7 +169,12 @@ private fun ExerciseContent(
 }
 
 @Composable
-private fun InteractionArea(exercise: ExerciseModel, state: ExerciseUiState, viewModel: ModuleExerciseViewModel) {
+private fun InteractionArea(
+    exercise: ExerciseModel,
+    state: ExerciseUiState,
+    viewModel: ModuleExerciseViewModel,
+    onDragActiveChange: (Boolean) -> Unit,
+) {
     when (exercise.interactionType) {
         InteractionType.SELECCION_EN_GRAFICO -> {
             Text(
@@ -194,6 +206,7 @@ private fun InteractionArea(exercise: ExerciseModel, state: ExerciseUiState, vie
                     workingOrder = newOrder
                     viewModel.setOrder(newOrder)
                 },
+                onDragActiveChange = onDragActiveChange,
             )
         }
         InteractionType.ESTIMAR_VALOR -> {

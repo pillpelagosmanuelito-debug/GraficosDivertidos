@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -173,6 +174,15 @@ private fun ProfilePage(state: OnboardingUiState, viewModel: OnboardingViewModel
             label = { Text("Tu alias (no tu nombre real)") },
             modifier = Modifier.padding(top = 16.dp),
             singleLine = true,
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedTextColor = androidx.compose.ui.graphics.Color.White,
+                unfocusedTextColor = androidx.compose.ui.graphics.Color.White,
+                cursorColor = androidx.compose.ui.graphics.Color.White,
+                focusedBorderColor = androidx.compose.ui.graphics.Color.White,
+                unfocusedBorderColor = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.5f),
+                focusedLabelColor = androidx.compose.ui.graphics.Color.White,
+                unfocusedLabelColor = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.7f),
+            ),
         )
         LazyVerticalGrid(
             columns = GridCells.Fixed(4),

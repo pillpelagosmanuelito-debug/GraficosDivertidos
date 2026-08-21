@@ -8,11 +8,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -102,7 +105,7 @@ private fun HomeHeader(state: HomeUiState, onOpenProfile: () -> Unit, onOpenGall
             contentScale = ContentScale.Crop,
         )
         Box(modifier = Modifier.fillMaxWidth().aspectRatio(1.5f).background(Navy.copy(alpha = 0.15f)))
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars).padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
                 Box(
                     modifier = Modifier

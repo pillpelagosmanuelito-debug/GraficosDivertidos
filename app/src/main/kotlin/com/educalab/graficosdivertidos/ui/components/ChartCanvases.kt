@@ -20,6 +20,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.educalab.graficosdivertidos.domain.logic.ChartMathEngine
 import com.educalab.graficosdivertidos.domain.model.DataPointModel
@@ -243,9 +244,9 @@ fun PictogramChartCanvas(
                 }
             },
     ) {
-        val leftLabelWidth = 96f
+        val leftLabelWidth = 96.dp.toPx()
         val rowHeight = size.height / points.size.coerceAtLeast(1)
-        val iconSize = (rowHeight * 0.55f).coerceAtMost(34f)
+        val iconSize = (rowHeight * 0.55f).coerceAtMost(34.dp.toPx())
         val newRects = mutableListOf<androidx.compose.ui.geometry.Rect>()
 
         points.forEachIndexed { index, point ->
@@ -268,14 +269,14 @@ fun PictogramChartCanvas(
                 // Sin escala: se dibuja un único icono ambiguo grande (para el reto del Detective).
                 drawRoundRect(
                     color = color.copy(alpha = 0.4f),
-                    topLeft = Offset(leftLabelWidth + 6f, rowTop + rowHeight / 2 - iconSize / 2),
+                    topLeft = Offset(leftLabelWidth + 6.dp.toPx(), rowTop + rowHeight / 2 - iconSize / 2),
                     size = androidx.compose.ui.geometry.Size(iconSize, iconSize),
                     cornerRadius = androidx.compose.ui.geometry.CornerRadius(8f, 8f),
                 )
             } else {
                 val visibleFull = (count.fullIcons * animation.value).toInt().coerceAtMost(count.fullIcons)
                 for (i in 0 until visibleFull) {
-                    val x = leftLabelWidth + 6f + i * (iconSize + 6f)
+                    val x = leftLabelWidth + 6.dp.toPx() + i * (iconSize + 6.dp.toPx())
                     if (x + iconSize > size.width) break
                     drawRoundRect(
                         color = color,
@@ -285,7 +286,7 @@ fun PictogramChartCanvas(
                     )
                 }
                 if (count.partialFraction > 0.05 && animation.value > 0.9f) {
-                    val x = leftLabelWidth + 6f + visibleFull * (iconSize + 6f)
+                    val x = leftLabelWidth + 6.dp.toPx() + visibleFull * (iconSize + 6.dp.toPx())
                     if (x + iconSize * count.partialFraction.toFloat() <= size.width) {
                         drawRoundRect(
                             color = color.copy(alpha = 0.6f),

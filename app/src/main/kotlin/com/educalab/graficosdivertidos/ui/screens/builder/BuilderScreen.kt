@@ -37,6 +37,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -68,10 +71,12 @@ fun BuilderScreen(viewModel: BuilderViewModel, onBack: () -> Unit) {
                 Box(Modifier.fillMaxSize(), Alignment.Center) { CircularProgressIndicator() }
                 return@Box
             }
+            var dragActive by remember { mutableStateOf(false) }
             LazyColumn(
                 Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(14.dp),
+                userScrollEnabled = !dragActive,
             ) {
                 item {
                     AnimatedProgressBar(progress = (state.stepIndex + 1).toFloat() / state.stepCount)
@@ -86,7 +91,7 @@ fun BuilderScreen(viewModel: BuilderViewModel, onBack: () -> Unit) {
                         BuilderStep.DATASET -> DatasetStep(state.datasets, state.selectedDataset, viewModel::selectDataset)
                         BuilderStep.TIPO -> ChartTypeStep(state.chartType, viewModel::selectChartType)
                         BuilderStep.TITULO -> TitleStep(state.title, viewModel::setTitle)
-                        BuilderStep.CATEGORIAS -> CategoriesStep(state, viewModel)
+                        BuilderStep.CATEGORIAS -> CategoriesStep(state, viewModel, onDragActiveChange = { dragActive = it })
                         BuilderStep.ETIQUETAS -> LabelsStep(state.showLabels, viewModel::toggleLabels)
                         BuilderStep.ESCALA -> ScaleStep(state, viewModel)
                         BuilderStep.LEYENDA -> LegendStep(state.showLegend, viewModel::toggleLegend)
@@ -163,7 +168,7 @@ private fun TitleStep(title: String, onChange: (String) -> Unit) {
 }
 
 @Composable
-private fun CategoriesStep(state: BuilderUiState, viewModel: BuilderViewModel) {
+private fun CategoriesStep(state: BuilderUiState, viewModel: BuilderViewModel, onDragActiveChange: (Boolean) -> Unit) {
     val dataset = state.selectedDataset
     Column {
         Text("Desmarca lo que no quieras mostrar y arrastra para ordenar:", style = MaterialTheme.typography.bodyMedium)
@@ -185,6 +190,7 @@ private fun CategoriesStep(state: BuilderUiState, viewModel: BuilderViewModel) {
             items = state.categoryOrder,
             itemLabel = { it },
             onReordered = viewModel::setCategoryOrder,
+            onDragActiveChange = onDragActiveChange,
         )
     }
 }

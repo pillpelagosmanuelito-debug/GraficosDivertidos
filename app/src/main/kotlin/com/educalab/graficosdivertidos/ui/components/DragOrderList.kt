@@ -39,6 +39,7 @@ fun <T> DragOrderList(
     itemLabel: (T) -> String,
     onReordered: (List<T>) -> Unit,
     modifier: Modifier = Modifier,
+    onDragActiveChange: (Boolean) -> Unit = {},
 ) {
     var itemHeightPx by remember { mutableStateOf(0f) }
     var draggingIndex by remember { mutableStateOf(-1) }
@@ -60,6 +61,7 @@ fun <T> DragOrderList(
                             onDragStart = {
                                 draggingIndex = index
                                 dragOffset = 0f
+                                onDragActiveChange(true)
                             },
                             onDragEnd = {
                                 if (draggingIndex >= 0 && itemHeightPx > 0f) {
@@ -74,10 +76,12 @@ fun <T> DragOrderList(
                                 }
                                 draggingIndex = -1
                                 dragOffset = 0f
+                                onDragActiveChange(false)
                             },
                             onDragCancel = {
                                 draggingIndex = -1
                                 dragOffset = 0f
+                                onDragActiveChange(false)
                             },
                             onDrag = { change, amount ->
                                 change.consume()
