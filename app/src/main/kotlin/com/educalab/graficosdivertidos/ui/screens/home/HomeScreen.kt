@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -50,6 +51,7 @@ import com.educalab.graficosdivertidos.ui.components.moduleIconRes
 import com.educalab.graficosdivertidos.ui.components.moduleStateLabel
 import com.educalab.graficosdivertidos.ui.theme.Navy
 import com.educalab.graficosdivertidos.ui.theme.Navy2
+import com.educalab.graficosdivertidos.ui.theme.SurfaceLight
 
 private val moduleDescriptions = mapOf(
     ModuleKey.BARRAS to "Compara alturas y cantidades",
@@ -105,6 +107,12 @@ private fun HomeHeader(state: HomeUiState, onOpenProfile: () -> Unit, onOpenGall
             contentScale = ContentScale.Crop,
         )
         Box(modifier = Modifier.fillMaxWidth().aspectRatio(1.5f).background(Navy.copy(alpha = 0.15f)))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .windowInsetsTopHeight(WindowInsets.statusBars)
+                .background(SurfaceLight),
+        )
         Column(modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars).padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
                 Box(

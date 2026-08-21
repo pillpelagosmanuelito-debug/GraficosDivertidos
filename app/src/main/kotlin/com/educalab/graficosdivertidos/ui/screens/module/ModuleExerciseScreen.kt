@@ -197,7 +197,14 @@ private fun InteractionArea(
             }
         }
         InteractionType.ORDENAR_CATEGORIAS -> {
-            var workingOrder by remember(exercise.id) { mutableStateOf(exercise.options.indices.toList()) }
+            var workingOrder by remember(exercise.id) {
+                val original = exercise.options.indices.toList()
+                var shuffled = original.shuffled()
+                while (shuffled.size > 1 && shuffled == exercise.correctAnswer) {
+                    shuffled = original.shuffled()
+                }
+                mutableStateOf(shuffled)
+            }
             Text("Mantén presionado y arrastra para ordenar:", style = MaterialTheme.typography.bodyMedium)
             DragOrderList(
                 items = workingOrder,
